@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.rymin.todolist.page.base.BaseViewModel
 import com.rymin.todolist.page.list.data.TodoListItem
 import com.rymin.todolist.page.list.data.TodoListItems
 import com.rymin.todolist.page.list.ui.DeviceListUiState
@@ -17,7 +18,15 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ListViewModel @Inject constructor() : ViewModel() {
+class ListViewModel @Inject constructor() : BaseViewModel<ListViewModel.Event>() {
+
+    sealed class Event {
+        object Finish : Event()
+        object AppExit : Event()
+
+        class AddEvent(val message: String) : Event()
+        object GotoAboutPage : Event()
+    }
 
     private val _deviceListUiState = MutableStateFlow(DeviceListUiState.empty())
     val deviceListUiState: StateFlow<DeviceListUiState> = _deviceListUiState.asStateFlow()

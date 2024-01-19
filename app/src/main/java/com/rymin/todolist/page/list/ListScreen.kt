@@ -55,7 +55,7 @@ fun ListScreen(
                 Text(
                     modifier = Modifier
                         .clickable {
-                            viewModel.addTodoList("new message")
+                            viewModel.sendEvent(ListViewModel.Event.AddEvent("new message"))
                         }, text = "+"
                 )
                 TodoList(viewModel = viewModel())
@@ -104,10 +104,15 @@ fun TodoList(
     ) {
         deviceListItems.copyMutableList().forEach {
             Card(
-                modifier = Modifier.fillMaxWidth().height(76.dp).padding(horizontal = 20.dp, vertical = 6.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(76.dp)
+                    .padding(horizontal = 20.dp, vertical = 6.dp)
             ) {
                 Row(
-                    modifier = Modifier.fillMaxSize().padding(horizontal = 20.dp),
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(horizontal = 20.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Column(
